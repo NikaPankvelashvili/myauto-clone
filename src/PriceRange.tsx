@@ -22,7 +22,7 @@ export default function PriceRange({
         <div className="flex items-center justify-between w-10 mb-2">
           <div
             onClick={() => setCurrency(0)}
-            className={`cursor-pointer w-5 h-5 flex items-center justify-center transition-all duration-150 ease-in ${
+            className={`cursor-pointer w-5 h-5 flex items-center justify-center transition-all duration-75 ease-in ${
               currency === 0
                 ? " rounded-full bg-[#272A37] text-white"
                 : "text-[#8C929B]"
@@ -32,7 +32,7 @@ export default function PriceRange({
           </div>
           <div
             onClick={() => setCurrency(1)}
-            className={`cursor-pointer w-5 h-5 flex items-center justify-center transition-all duration-150 ease-in ${
+            className={`cursor-pointer w-5 h-5 flex items-center justify-center transition-all duration-75 ease-in ${
               currency === 1
                 ? " rounded-full bg-[#272A37] text-white"
                 : "text-[#8C929B]"
