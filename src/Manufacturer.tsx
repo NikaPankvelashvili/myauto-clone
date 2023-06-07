@@ -5,7 +5,7 @@ import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
 import { IoIosClose } from "react-icons/io";
 import { CategoryType } from "./SearchBar";
 
-type ManObject = {
+export type ManObject = {
   man_id: string;
   man_name: string;
   is_car: string;
@@ -31,7 +31,9 @@ export default function Manufacturer({
   useEffect(() => {
     fetch("https://static.my.ge/myauto/js/mans.json")
       .then((resp) => resp.json())
-      .then((resp) => setFetchedManData(resp));
+      .then((resp) => {
+        setFetchedManData(resp);
+      });
   }, []);
 
   const toggleSelectedMan = (manID: string): void => {
