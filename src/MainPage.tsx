@@ -1,12 +1,79 @@
-import SearchBar from './SearchBar'
-import Content from './Content'
+import { createContext, useContext, useState } from "react";
+import SearchBar, { Currency } from "./SearchBar";
+import Content from "./Content";
+
+export type SearchFilters = {
+  searchDealType: number;
+  setSearchDealType: Function;
+  searchSelectedManIDs: string[];
+  setSearchSelectedManIDs: Function;
+  searchSelectedModelIDs: number[];
+  setSearchSelectedModelIDs: Function;
+  searchSelectedCategoryIDs: number[];
+  setSearchSelectedCategoryIDs: Function;
+  searchMinPrice: number;
+  setSearchMinPrice: Function;
+  searchMaxPrice: number;
+  setSearchMaxPrice: Function;
+  currency: Currency;
+  setCurrency: Function;
+};
+
+export const SearchFiltersContext = createContext<SearchFilters>({
+  searchDealType: -1,
+  setSearchDealType: () => {},
+  searchSelectedManIDs: [],
+  setSearchSelectedManIDs: () => {},
+  searchSelectedModelIDs: [],
+  setSearchSelectedModelIDs: () => {},
+  searchSelectedCategoryIDs: [],
+  setSearchSelectedCategoryIDs: () => {},
+  searchMinPrice: -1,
+  setSearchMinPrice: () => {},
+  searchMaxPrice: -1,
+  setSearchMaxPrice: () => {},
+  currency: 0,
+  setCurrency: () => {},
+});
 
 export default function MainPage() {
+  const [searchDealType, setSearchDealType] = useState<number>(-1);
+  const [searchSelectedManIDs, setSearchSelectedManIDs] = useState<string[]>(
+    []
+  );
+  const [searchSelectedModelIDs, setSearchSelectedModelIDs] = useState<
+    number[]
+  >([]);
+  const [searchSelectedCategoryIDs, setSearchSelectedCategoryIDs] = useState<
+    number[]
+  >([]);
+  const [searchMinPrice, setSearchMinPrice] = useState<number>(-1);
+  const [searchMaxPrice, setSearchMaxPrice] = useState<number>(-1);
+  const [currency, setCurrency] = useState<Currency>(0);
 
   return (
-    <div className='bg-bgColor min-h-[calc(100%-80px)] px-435px flex pt-16'>
-      <SearchBar />
-      <Content />
-    </div>
-  )
+    <SearchFiltersContext.Provider
+      value={{
+        searchDealType,
+        setSearchDealType,
+        searchSelectedManIDs,
+        setSearchSelectedManIDs,
+        searchSelectedModelIDs,
+        setSearchSelectedModelIDs,
+        searchSelectedCategoryIDs,
+        setSearchSelectedCategoryIDs,
+        searchMinPrice,
+        setSearchMinPrice,
+        searchMaxPrice,
+        setSearchMaxPrice,
+        currency,
+        setCurrency,
+      }}
+    >
+      <div className="bg-bgColor min-h-[calc(100%-80px)] px-435px flex pt-16">
+        <SearchBar />
+        <Content />
+      </div>
+    </SearchFiltersContext.Provider>
+  );
 }

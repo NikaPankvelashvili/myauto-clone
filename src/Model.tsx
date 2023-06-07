@@ -41,8 +41,6 @@ export default function Model({ selectedManIDs }: Props) {
     }
   };
 
-  console.log(selectedModelIDs);
-
   return (
     <div className="mt-4">
       <label

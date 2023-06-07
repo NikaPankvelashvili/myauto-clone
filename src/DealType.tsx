@@ -1,11 +1,16 @@
+import { Dispatch, useEffect } from "react";
 import { ClickAwayListener } from "@mui/base";
 import { useState } from "react";
 import { BsArrowDownShort, BsArrowUpShort } from "react-icons/bs";
 import { IoIosClose } from "react-icons/io";
 
-export default function DealType() {
-  const [dealType, setDealType] = useState<Number>(-1);
-  const [dealTypeShown, setDealTypeShown] = useState<Boolean>(false);
+export default function DealType({
+  setSearchDealType,
+}: {
+  setSearchDealType: Dispatch<React.SetStateAction<number>>;
+}) {
+  const [dealType, setDealType] = useState<number>(-1);
+  const [dealTypeShown, setDealTypeShown] = useState<boolean>(false);
 
   const translateDealType = (): string => {
     switch (dealType) {
@@ -17,6 +22,10 @@ export default function DealType() {
         return "გარიგების ტიპი";
     }
   };
+
+  useEffect(() => {
+    setSearchDealType(dealType);
+  }, [dealType]);
 
   return (
     <>
