@@ -18,9 +18,6 @@ export default function SearchBar() {
   const [maxPrice, setMaxPrice] = useState<number>(-1);
   const [selectedManIDs, setSelectedManIDs] = useState<string[]>([]);
 
-  // search filters
-  const [searchDealType, setSearchDealType] = useState<number>(-1);
-
   return (
     <div className="w-250px mr-5 bg-white h-fit rounded-t-[12px] overflow-hidden mb-6">
       <div className="flex justify-around w-full ">
@@ -50,7 +47,7 @@ export default function SearchBar() {
         </div>
       </div>
       <div className="p-6 border-b">
-        <DealType setSearchDealType={setSearchDealType} />
+        <DealType />
         <Manufacturer
           selectedManIDs={selectedManIDs}
           setSelectedManIDs={setSelectedManIDs}

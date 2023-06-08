@@ -1,9 +1,10 @@
 import { ClickAwayListener } from "@mui/base";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import DropDownElement from "./DropDownElement";
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
 import { IoIosClose } from "react-icons/io";
 import { CategoryType } from "./SearchBar";
+import { SearchFiltersContext } from "./MainPage";
 
 export type ManObject = {
   man_id: string;
@@ -28,6 +29,8 @@ export default function Manufacturer({
   const [fetchedManData, setFetchedManData] = useState<ManObject[]>();
   const [manSearchTerm, setManSearchTerm] = useState<string>("");
 
+  const { setSearchSelectedManIDs } = useContext(SearchFiltersContext);
+
   useEffect(() => {
     fetch("https://static.my.ge/myauto/js/mans.json")
       .then((resp) => resp.json())
@@ -35,6 +38,10 @@ export default function Manufacturer({
         setFetchedManData(resp);
       });
   }, []);
+
+  useEffect(() => {
+    setSearchSelectedManIDs(selectedManIDs);
+  }, [selectedManIDs]);
 
   const toggleSelectedMan = (manID: string): void => {
     if (selectedManIDs.includes(manID)) {
