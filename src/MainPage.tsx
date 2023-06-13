@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useState } from "react";
 import SearchBar, { Currency } from "./SearchBar";
 import Content from "./Content";
 
@@ -15,8 +15,8 @@ export type SearchFilters = {
   setSearchMinPrice: Function;
   searchMaxPrice: number;
   setSearchMaxPrice: Function;
-  currency: Currency;
-  setCurrency: Function;
+  searchCurrency: Currency;
+  setSearchCurrency: Function;
 };
 
 export const SearchFiltersContext = createContext<SearchFilters>({
@@ -32,8 +32,8 @@ export const SearchFiltersContext = createContext<SearchFilters>({
   setSearchMinPrice: () => {},
   searchMaxPrice: -1,
   setSearchMaxPrice: () => {},
-  currency: 0,
-  setCurrency: () => {},
+  searchCurrency: 0,
+  setSearchCurrency: () => {},
 });
 
 export default function MainPage() {
@@ -49,7 +49,16 @@ export default function MainPage() {
   >([]);
   const [searchMinPrice, setSearchMinPrice] = useState<number>(-1);
   const [searchMaxPrice, setSearchMaxPrice] = useState<number>(-1);
-  const [currency, setCurrency] = useState<Currency>(0);
+  const [searchCurrency, setSearchCurrency] = useState<Currency>(0);
+
+  console.log(
+    `
+    searchDealType:${searchDealType}
+    serachSelectedManIDs:${searchSelectedManIDs}
+    searchSelectedModelIDs:${searchSelectedModelIDs}
+    searchSelectedCategoryIDs:${searchSelectedCategoryIDs}
+    minprice:${searchMinPrice} maxprice:${searchMaxPrice} currency:${searchCurrency}`
+  );
 
   return (
     <SearchFiltersContext.Provider
@@ -66,8 +75,8 @@ export default function MainPage() {
         setSearchMinPrice,
         searchMaxPrice,
         setSearchMaxPrice,
-        currency,
-        setCurrency,
+        searchCurrency,
+        setSearchCurrency,
       }}
     >
       <div className="bg-bgColor min-h-[calc(100%-80px)] px-435px flex pt-16">

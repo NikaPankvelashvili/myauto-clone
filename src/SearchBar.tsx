@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import SearchBarCategory from "./SearchBarCategory";
 import { FaCarSide, FaMotorcycle } from "react-icons/fa";
 import { TbTractor } from "react-icons/tb";
@@ -7,6 +7,7 @@ import Manufacturer from "./Manufacturer";
 import Category from "./Category";
 import PriceRange from "./PriceRange";
 import Model from "./Model";
+import { SearchFiltersContext } from "./MainPage";
 
 export type Currency = 0 | 1; // 0 - USD 1 - GEL
 export type CategoryType = 0 | 1 | 2; //0 - car, 1 - spec, 2 - moto
@@ -17,6 +18,22 @@ export default function SearchBar() {
   const [minPrice, setMinPrice] = useState<number>(-1);
   const [maxPrice, setMaxPrice] = useState<number>(-1);
   const [selectedManIDs, setSelectedManIDs] = useState<string[]>([]);
+
+  const { setSearchMinPrice, setSearchMaxPrice, setSearchCurrency } =
+    useContext(SearchFiltersContext);
+
+  useEffect(() => {
+    setSearchCurrency(currency);
+    setSearchMaxPrice(maxPrice);
+    setSearchMinPrice(minPrice);
+  }, [
+    minPrice,
+    maxPrice,
+    currency,
+    setSearchCurrency,
+    setSearchMaxPrice,
+    setSearchMinPrice,
+  ]);
 
   return (
     <div className="w-250px mr-5 bg-white h-fit rounded-t-[12px] overflow-hidden mb-6">

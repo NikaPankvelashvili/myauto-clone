@@ -41,7 +41,7 @@ export default function Manufacturer({
 
   useEffect(() => {
     setSearchSelectedManIDs(selectedManIDs);
-  }, [selectedManIDs]);
+  }, [selectedManIDs, setSearchSelectedManIDs]);
 
   const toggleSelectedMan = (manID: string): void => {
     if (selectedManIDs.includes(manID)) {

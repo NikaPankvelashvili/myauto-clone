@@ -1,8 +1,9 @@
 import { ClickAwayListener } from "@mui/base";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
 import { IoIosClose } from "react-icons/io";
 import CategoryDropDownElement from "./CategoryDropDownElement";
+import { SearchFiltersContext } from "./MainPage";
 
 type CategoryType = {
   category_id: number;
@@ -21,6 +22,8 @@ export default function Category({ current_category_type }: Props) {
   >([]);
   const [selectedCategoryIDs, setSelectedCategoryIDs] = useState<number[]>([]);
 
+  const { setSearchSelectedCategoryIDs } = useContext(SearchFiltersContext);
+
   useEffect(() => {
     fetch("https://api2.myauto.ge/ka/cats/get")
       .then((res) => res.json())
@@ -30,6 +33,10 @@ export default function Category({ current_category_type }: Props) {
   useEffect(() => {
     setSelectedCategoryIDs((prev) => []);
   }, [current_category_type]);
+
+  useEffect(() => {
+    setSearchSelectedCategoryIDs(selectedCategoryIDs);
+  }, [selectedCategoryIDs, setSearchSelectedCategoryIDs]);
 
   const toggleSelectedCat = (categoryID: number): void => {
     if (selectedCategoryIDs.includes(categoryID)) {

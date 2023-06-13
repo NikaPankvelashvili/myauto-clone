@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { ClickAwayListener } from "@mui/base";
 import { BsArrowUpShort, BsArrowDownShort } from "react-icons/bs";
 import { IoIosClose } from "react-icons/io";
 import CategoryDropDownElement from "./CategoryDropDownElement";
+import { SearchFiltersContext } from "./MainPage";
 
 type Props = {
   selectedManIDs: string[];
@@ -20,6 +21,8 @@ export default function Model({ selectedManIDs }: Props) {
   const [modelSearchTerm, setModelSearchTerm] = useState<string>("");
   const [fetchedModelData, setFetchedModelData] = useState<ModelType[]>([]);
 
+  const { setSearchSelectedModelIDs } = useContext(SearchFiltersContext);
+
   useEffect(() => {
     const fetchManufacturerModels = (): void => {
       selectedManIDs.forEach((manID: string) => {
@@ -32,6 +35,10 @@ export default function Model({ selectedManIDs }: Props) {
     setFetchedModelData([]);
     fetchManufacturerModels();
   }, [selectedManIDs]);
+
+  useEffect(() => {
+    setSearchSelectedModelIDs(selectedModelIDs);
+  }, [selectedModelIDs, setSearchSelectedModelIDs]);
 
   const toggleSelectedModel = (model_id: number): void => {
     if (selectedModelIDs.includes(model_id)) {
