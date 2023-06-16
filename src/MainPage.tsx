@@ -51,14 +51,14 @@ export default function MainPage() {
   const [searchMaxPrice, setSearchMaxPrice] = useState<number>(-1);
   const [searchCurrency, setSearchCurrency] = useState<Currency>(0);
 
-  console.log(
-    `
-    searchDealType:${searchDealType}
-    serachSelectedManIDs:${searchSelectedManIDs}
-    searchSelectedModelIDs:${searchSelectedModelIDs}
-    searchSelectedCategoryIDs:${searchSelectedCategoryIDs}
-    minprice:${searchMinPrice} maxprice:${searchMaxPrice} currency:${searchCurrency}`
-  );
+  // console.log(
+  //   `
+  //   searchDealType:${searchDealType}
+  //   serachSelectedManIDs:${searchSelectedManIDs}
+  //   searchSelectedModelIDs:${searchSelectedModelIDs}
+  //   searchSelectedCategoryIDs:${searchSelectedCategoryIDs}
+  //   minprice:${searchMinPrice} maxprice:${searchMaxPrice} currency:${searchCurrency}`
+  // );
 
   return (
     <SearchFiltersContext.Provider
@@ -79,7 +79,7 @@ export default function MainPage() {
         setSearchCurrency,
       }}
     >
-      <div className="bg-bgColor min-h-[calc(100%-80px)] px-435px flex pt-16">
+      <div className="bg-bgColor min-h-[calc(100%-80px)] flex justify-center pt-16">
         <SearchBar />
         <Content />
       </div>

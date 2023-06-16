@@ -9,7 +9,7 @@ type Props = {
   selectedManIDs: string[];
 };
 
-type ModelType = {
+export type ModelType = {
   model_id: number;
   man_id: number;
   model_name: string;

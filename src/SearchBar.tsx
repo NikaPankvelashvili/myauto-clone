@@ -36,7 +36,7 @@ export default function SearchBar() {
   ]);
 
   return (
-    <div className="w-250px mr-5 bg-white h-fit rounded-t-[12px] overflow-hidden mb-6">
+    <div className="w-[250px] mr-5 bg-white h-fit rounded-t-[12px] overflow-hidden mb-6">
       <div className="flex justify-around w-full ">
         <div
           className="w-full rounded-tl-[12px]"

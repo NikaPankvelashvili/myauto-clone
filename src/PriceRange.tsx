@@ -50,6 +50,7 @@ export default function PriceRange({
             placeholder="დან"
             min={0}
             value={minPrice > -1 ? minPrice : undefined}
+            // value={minPrice}
             onChange={(e) => setMinPrice(e.target.value)}
           />
         </div>
@@ -61,6 +62,7 @@ export default function PriceRange({
             placeholder="მდე"
             min={minPrice}
             value={maxPrice > -1 ? maxPrice : undefined}
+            // value={maxPrice}
             onChange={(e) => setMaxPrice(e.target.value)}
           />
         </div>
