@@ -13,6 +13,7 @@ export default function DealType() {
 
   useEffect(() => {
     setSearchDealType(dealType);
+    // eslint-disable-next-line
   }, [dealType]);
 
   const translateDealType = (): string => {

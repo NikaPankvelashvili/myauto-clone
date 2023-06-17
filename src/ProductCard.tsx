@@ -50,7 +50,7 @@ export default function ProductCard(carInfo: ProductInfo) {
         </div>
         <div className="ml-4 ">
           <div className="mb-[26px]">
-            <p className="flex  ">
+            <div className="flex  ">
               <p className="mr-2 text-[#272A37] font-bold">
                 {fetchedManufacturer &&
                   fetchedManufacturer.filter(
@@ -64,7 +64,7 @@ export default function ProductCard(carInfo: ProductInfo) {
                   )[0]?.model_name}
               </p>
               <span className="text-[#8C929B] font-medium">{`${carInfo.prod_year} წ`}</span>
-            </p>
+            </div>
           </div>
           <div className="mt-2 flex justify-center items-center mb-3">
             <div className="mr-12">
