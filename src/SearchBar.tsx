@@ -19,8 +19,6 @@ export default function SearchBar() {
   const [maxPrice, setMaxPrice] = useState<number>(-1);
   const [selectedManIDs, setSelectedManIDs] = useState<string[]>([]);
 
-  console.log(selectedManIDs);
-
   const {
     setSearchMinPrice,
     setSearchMaxPrice,
@@ -91,7 +89,7 @@ export default function SearchBar() {
       <div className="px-6 py-4 w-full">
         <button
           onClick={() => setToggleSearch(!toggleSearch)}
-          className="w-full h-8 rounded-md text-base text-white bg-[#FD4100] font-bold"
+          className="w-full h-8 rounded-md text-base text-white bg-[#FD4100] font-bold hover:bg-[#d24415] ease-in-out duration-150"
         >
           ძიება
         </button>

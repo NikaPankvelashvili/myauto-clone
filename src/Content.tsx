@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import ProductCard from "./ProductCard";
 import DropDownFilter from "./DropDownFilter";
 import { SearchFiltersContext } from "./MainPage";
+import ReactPaginate from "react-paginate";
 
 export type TimePeriodIndex =
   | "ბოლო 24 საათი"
@@ -41,6 +42,40 @@ export default function Content() {
     useState<TimePeriodIndex>("ბოლო 24 საათი");
   const [arrangeFilterIndex, setArrangeFilterIndex] =
     useState<ArrangeFilter>("თარიღი კლებადი");
+
+  const [pageNumber, setPageNumber] = useState<number>(0);
+  const carsPerPage = 5;
+  const carsVisited = pageNumber * carsPerPage;
+
+  const pageCount = Math.ceil(filteredData.length / carsPerPage);
+
+  const displayCarsSliced = filteredData
+    .slice(carsVisited, carsVisited + carsPerPage)
+    .map((car) => {
+      return (
+        <ProductCard
+          key={car.car_id}
+          man_id={car.man_id}
+          model_id={car.model_id}
+          prod_year={car.prod_year}
+          engine_volume={car.engine_volume}
+          car_run_km={car.car_run_km}
+          for_rent={car.for_rent}
+          right_wheel={car.right_wheel}
+          views={car.views}
+          order_date={car.order_date}
+          photo={car.photo}
+          car_id={car.car_id}
+          photo_ver={car.photo_ver}
+          price_usd={car.price_usd}
+          category_id={car.category_id}
+        />
+      );
+    });
+
+  useEffect(() => {
+    setPageNumber(0);
+  }, [filteredData, timePeriodIndex, arrangeFilterIndex]);
 
   const {
     searchDealType,
@@ -235,27 +270,43 @@ export default function Content() {
           />
         </div>
       </div>
-      {filteredData.map((car) => {
-        return (
-          <ProductCard
-            key={car.car_id}
-            man_id={car.man_id}
-            model_id={car.model_id}
-            prod_year={car.prod_year}
-            engine_volume={car.engine_volume}
-            car_run_km={car.car_run_km}
-            for_rent={car.for_rent}
-            right_wheel={car.right_wheel}
-            views={car.views}
-            order_date={car.order_date}
-            photo={car.photo}
-            car_id={car.car_id}
-            photo_ver={car.photo_ver}
-            price_usd={car.price_usd}
-            category_id={car.category_id}
-          />
-        );
-      })}
+      {
+        // filteredData.map((car) => {
+        //   return (
+        //     <ProductCard
+        //       key={car.car_id}
+        //       man_id={car.man_id}
+        //       model_id={car.model_id}
+        //       prod_year={car.prod_year}
+        //       engine_volume={car.engine_volume}
+        //       car_run_km={car.car_run_km}
+        //       for_rent={car.for_rent}
+        //       right_wheel={car.right_wheel}
+        //       views={car.views}
+        //       order_date={car.order_date}
+        //       photo={car.photo}
+        //       car_id={car.car_id}
+        //       photo_ver={car.photo_ver}
+        //       price_usd={car.price_usd}
+        //       category_id={car.category_id}
+        //     />
+        //   );
+        // })
+        displayCarsSliced
+      }
+      <ReactPaginate
+        previousLabel="<"
+        nextLabel=">"
+        pageCount={pageCount}
+        onPageChange={({ selected }) => setPageNumber(selected)}
+        containerClassName="flex w-full justify-center mb-10"
+        previousClassName="mr-2 text-[#FD4100] font-bold select-none"
+        nextClassName="ml-2 text-[#FD4100] font-bold select-none"
+        pageClassName="mx-1 select-none"
+        activeClassName="text-[#FD4100] select-none"
+        disabledClassName="text-gray-500"
+        breakLabel="..."
+      />
     </div>
   );
 }
