@@ -3,13 +3,13 @@ import ProductCard from "./ProductCard";
 import DropDownFilter from "./DropDownFilter";
 import { SearchFiltersContext } from "./MainPage";
 
-type TimePeriodIndex =
+export type TimePeriodIndex =
   | "ბოლო 24 საათი"
   | "ბოლო 12 საათი"
   | "ბოლო 6 საათი"
   | "ბოლო 3 საათი"
   | "ბოლო 1 საათი";
-type ArrangeFilter =
+export type ArrangeFilter =
   | "თარიღი კლებადი"
   | "თარიღი ზრდადი"
   | "ფასი კლებადი"
@@ -50,62 +50,105 @@ export default function Content() {
     searchMinPrice,
     searchMaxPrice,
     searchCurrency,
+    toggleSearch,
   } = useContext(SearchFiltersContext);
+
+  const compareFunctionGenerator = (
+    currentArrangeFilter: ArrangeFilter
+  ): ((a: ProductInfo, b: ProductInfo) => 0 | -1 | 1) => {
+    switch (currentArrangeFilter) {
+      case "ფასი კლებადი":
+        return (car1: ProductInfo, car2: ProductInfo) => {
+          if (car1.price_usd < car2.price_usd) return 1;
+          if (car1.price_usd === car2.price_usd) return 0;
+          return -1;
+        };
+
+      case "ფასი ზრდადი":
+        return (car1: ProductInfo, car2: ProductInfo) => {
+          if (car1.price_usd > car2.price_usd) return 1;
+          if (car1.price_usd === car2.price_usd) return 0;
+          return -1;
+        };
+      case "გარბენი ზრდადი": {
+        return (car1: ProductInfo, car2: ProductInfo) => {
+          if (car1.car_run_km > car2.car_run_km) return 1;
+          if (car1.car_run_km === car2.car_run_km) return 0;
+          return -1;
+        };
+      }
+      case "გარბენი კლებადი": {
+        return (car1: ProductInfo, car2: ProductInfo) => {
+          if (car1.car_run_km < car2.car_run_km) return 1;
+          if (car1.car_run_km === car2.car_run_km) return 0;
+          return -1;
+        };
+      }
+      default:
+        return (a, b) => 1;
+    }
+  };
 
   useEffect(() => {
     setFilteredData(
-      fetchedData.filter((item) => {
-        const dealTypeMatch =
-          searchDealType === -1
-            ? true
-            : searchDealType === 0
-            ? item.for_rent === false
-            : item.for_rent === true;
-        const selectedManIDsMatch =
-          searchSelectedManIDs.length === 0
-            ? true
-            : searchSelectedManIDs.includes(`${item.man_id}`);
-        const selectedModelIDsMatch =
-          searchSelectedModelIDs.length === 0
-            ? true
-            : searchSelectedModelIDs.includes(item.model_id);
-        const selectedCategoryIDsMatch =
-          searchSelectedCategoryIDs.length === 0
-            ? true
-            : searchSelectedCategoryIDs.includes(item.category_id);
-        const minPriceMatch =
-          searchMinPrice === -1
-            ? true
-            : searchCurrency === 0
-            ? item.price_usd >= searchMinPrice
-            : item.price_usd * 2.65 >= searchMinPrice;
-        const maxPriceMatch =
-          searchMaxPrice === -1
-            ? true
-            : searchCurrency === 0
-            ? item.price_usd <= searchMaxPrice
-            : item.price_usd * 2.65 <= searchMaxPrice;
-        // TIME FILTER
+      fetchedData
+        .filter((item) => {
+          const dealTypeMatch =
+            searchDealType === -1
+              ? true
+              : searchDealType === 0
+              ? item.for_rent === false
+              : item.for_rent === true;
+          const selectedManIDsMatch =
+            searchSelectedManIDs.length === 0
+              ? true
+              : searchSelectedManIDs.includes(`${item.man_id}`);
+          const selectedModelIDsMatch =
+            searchSelectedModelIDs.length === 0
+              ? true
+              : searchSelectedModelIDs.includes(item.model_id);
+          const selectedCategoryIDsMatch =
+            searchSelectedCategoryIDs.length === 0
+              ? true
+              : searchSelectedCategoryIDs.includes(item.category_id);
+          const minPriceMatch =
+            searchMinPrice === -1
+              ? true
+              : searchCurrency === 0
+              ? item.price_usd >= searchMinPrice
+              : item.price_usd * 2.65 >= searchMinPrice;
+          const maxPriceMatch =
+            searchMaxPrice === -1
+              ? true
+              : searchCurrency === 0
+              ? item.price_usd <= searchMaxPrice
+              : item.price_usd * 2.65 <= searchMaxPrice;
+          // TIME FILTER
 
-        return (
-          dealTypeMatch &&
-          selectedManIDsMatch &&
-          selectedModelIDsMatch &&
-          selectedCategoryIDsMatch &&
-          minPriceMatch &&
-          maxPriceMatch
-        );
-      })
+          return (
+            dealTypeMatch &&
+            selectedManIDsMatch &&
+            selectedModelIDsMatch &&
+            selectedCategoryIDsMatch &&
+            minPriceMatch &&
+            maxPriceMatch
+          );
+        })
+        .sort(compareFunctionGenerator(arrangeFilterIndex))
     );
+    // eslint-disable-next-line
   }, [
-    searchDealType,
-    searchSelectedManIDs,
-    searchSelectedModelIDs,
-    searchSelectedCategoryIDs,
-    searchMinPrice,
-    searchMaxPrice,
-    searchCurrency,
-    timePeriodIndex,
+    fetchedData,
+    // searchDealType,
+    // searchSelectedManIDs,
+    // searchSelectedModelIDs,
+    // searchSelectedCategoryIDs,
+    // searchMinPrice,
+    // searchMaxPrice,
+    // searchCurrency,
+    // timePeriodIndex,
+    toggleSearch,
+    arrangeFilterIndex,
   ]);
 
   useEffect(() => {

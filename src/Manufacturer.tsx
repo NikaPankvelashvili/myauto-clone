@@ -81,7 +81,8 @@ export default function Manufacturer({
                 <span>
                   {selectedManIDs.map((manID, index) => (
                     <span key={index}>{`${
-                      fetchedManData![parseInt(manID) - 1].man_name
+                      fetchedManData?.filter((man) => man.man_id === manID)[0]
+                        .man_name
                     },`}</span>
                   ))}
                 </span>

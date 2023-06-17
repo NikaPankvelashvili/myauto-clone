@@ -83,8 +83,8 @@ export default function ProductCard(carInfo: ProductInfo) {
         <div className="flex mt-10 items-start justify-end ml-8">
           <p className="font-medium text-xl">
             {searchCurrency === 0
-              ? carInfo.price_usd
-              : Math.floor(carInfo.price_usd * 2.65)}
+              ? Math.round(carInfo.price_usd)
+              : Math.round(carInfo.price_usd * 2.65)}
           </p>
           <div className="ml-2 mt-1 bg-neutral-300 w-5 h-5 rounded-[12px] flex items-center justify-center">
             {searchCurrency === 0 ? (

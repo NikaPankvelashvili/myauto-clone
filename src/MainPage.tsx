@@ -17,6 +17,8 @@ export type SearchFilters = {
   setSearchMaxPrice: Function;
   searchCurrency: Currency;
   setSearchCurrency: Function;
+  toggleSearch: boolean;
+  setToggleSearch: Function;
 };
 
 export const SearchFiltersContext = createContext<SearchFilters>({
@@ -34,6 +36,8 @@ export const SearchFiltersContext = createContext<SearchFilters>({
   setSearchMaxPrice: () => {},
   searchCurrency: 0,
   setSearchCurrency: () => {},
+  toggleSearch: false,
+  setToggleSearch: () => {},
 });
 
 export default function MainPage() {
@@ -50,6 +54,7 @@ export default function MainPage() {
   const [searchMinPrice, setSearchMinPrice] = useState<number>(-1);
   const [searchMaxPrice, setSearchMaxPrice] = useState<number>(-1);
   const [searchCurrency, setSearchCurrency] = useState<Currency>(0);
+  const [toggleSearch, setToggleSearch] = useState<boolean>(false);
 
   // console.log(
   //   `
@@ -77,6 +82,8 @@ export default function MainPage() {
         setSearchMaxPrice,
         searchCurrency,
         setSearchCurrency,
+        toggleSearch,
+        setToggleSearch,
       }}
     >
       <div className="bg-bgColor min-h-[calc(100%-80px)] flex justify-center pt-16">

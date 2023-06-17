@@ -19,8 +19,15 @@ export default function SearchBar() {
   const [maxPrice, setMaxPrice] = useState<number>(-1);
   const [selectedManIDs, setSelectedManIDs] = useState<string[]>([]);
 
-  const { setSearchMinPrice, setSearchMaxPrice, setSearchCurrency } =
-    useContext(SearchFiltersContext);
+  console.log(selectedManIDs);
+
+  const {
+    setSearchMinPrice,
+    setSearchMaxPrice,
+    setSearchCurrency,
+    toggleSearch,
+    setToggleSearch,
+  } = useContext(SearchFiltersContext);
 
   useEffect(() => {
     setSearchCurrency(currency);
@@ -82,7 +89,10 @@ export default function SearchBar() {
         setMaxPrice={setMaxPrice}
       />
       <div className="px-6 py-4 w-full">
-        <button className="w-full h-8 rounded-md text-base text-white bg-[#FD4100] font-bold">
+        <button
+          onClick={() => setToggleSearch(!toggleSearch)}
+          className="w-full h-8 rounded-md text-base text-white bg-[#FD4100] font-bold"
+        >
           ძიება
         </button>
       </div>
