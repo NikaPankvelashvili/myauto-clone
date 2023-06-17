@@ -139,7 +139,37 @@ export default function Content() {
               : searchCurrency === 0
               ? item.price_usd <= searchMaxPrice
               : item.price_usd * 2.65 <= searchMaxPrice;
-          // TIME FILTER
+
+          const differenceFromNowInHours =
+            Math.abs(
+              new Date().getTime() - new Date(item.order_date).getTime()
+            ) /
+            (1000 * 60 * 60);
+
+          let timeFilterMatch: boolean = true;
+
+          switch (timePeriodIndex) {
+            case "ბოლო 1 საათი": {
+              timeFilterMatch = differenceFromNowInHours < 1;
+              break;
+            }
+            case "ბოლო 3 საათი": {
+              timeFilterMatch = differenceFromNowInHours < 3;
+              break;
+            }
+            case "ბოლო 6 საათი": {
+              timeFilterMatch = differenceFromNowInHours < 6;
+              break;
+            }
+            case "ბოლო 12 საათი": {
+              timeFilterMatch = differenceFromNowInHours < 12;
+              break;
+            }
+            case "ბოლო 24 საათი": {
+              timeFilterMatch = differenceFromNowInHours < 24;
+              break;
+            }
+          }
 
           return (
             dealTypeMatch &&
@@ -147,7 +177,8 @@ export default function Content() {
             selectedModelIDsMatch &&
             selectedCategoryIDsMatch &&
             minPriceMatch &&
-            maxPriceMatch
+            maxPriceMatch &&
+            timeFilterMatch
           );
         })
         .sort(compareFunctionGenerator(arrangeFilterIndex))
@@ -162,7 +193,7 @@ export default function Content() {
     // searchMinPrice,
     // searchMaxPrice,
     // searchCurrency,
-    // timePeriodIndex,
+    timePeriodIndex,
     toggleSearch,
     arrangeFilterIndex,
   ]);
