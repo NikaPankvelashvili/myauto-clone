@@ -219,19 +219,7 @@ export default function Content() {
         .sort(compareFunctionGenerator(arrangeFilterIndex))
     );
     // eslint-disable-next-line
-  }, [
-    fetchedData,
-    // searchDealType,
-    // searchSelectedManIDs,
-    // searchSelectedModelIDs,
-    // searchSelectedCategoryIDs,
-    // searchMinPrice,
-    // searchMaxPrice,
-    // searchCurrency,
-    timePeriodIndex,
-    toggleSearch,
-    arrangeFilterIndex,
-  ]);
+  }, [fetchedData, timePeriodIndex, toggleSearch, arrangeFilterIndex]);
 
   useEffect(() => {
     fetch("https://api2.myauto.ge/ka/products/")
@@ -270,30 +258,7 @@ export default function Content() {
           />
         </div>
       </div>
-      {
-        // filteredData.map((car) => {
-        //   return (
-        //     <ProductCard
-        //       key={car.car_id}
-        //       man_id={car.man_id}
-        //       model_id={car.model_id}
-        //       prod_year={car.prod_year}
-        //       engine_volume={car.engine_volume}
-        //       car_run_km={car.car_run_km}
-        //       for_rent={car.for_rent}
-        //       right_wheel={car.right_wheel}
-        //       views={car.views}
-        //       order_date={car.order_date}
-        //       photo={car.photo}
-        //       car_id={car.car_id}
-        //       photo_ver={car.photo_ver}
-        //       price_usd={car.price_usd}
-        //       category_id={car.category_id}
-        //     />
-        //   );
-        // })
-        displayCarsSliced
-      }
+      {displayCarsSliced}
       <ReactPaginate
         previousLabel="<"
         nextLabel=">"

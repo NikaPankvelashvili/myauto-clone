@@ -56,15 +56,6 @@ export default function MainPage() {
   const [searchCurrency, setSearchCurrency] = useState<Currency>(0);
   const [toggleSearch, setToggleSearch] = useState<boolean>(false);
 
-  // console.log(
-  //   `
-  //   searchDealType:${searchDealType}
-  //   serachSelectedManIDs:${searchSelectedManIDs}
-  //   searchSelectedModelIDs:${searchSelectedModelIDs}
-  //   searchSelectedCategoryIDs:${searchSelectedCategoryIDs}
-  //   minprice:${searchMinPrice} maxprice:${searchMaxPrice} currency:${searchCurrency}`
-  // );
-
   return (
     <SearchFiltersContext.Provider
       value={{
