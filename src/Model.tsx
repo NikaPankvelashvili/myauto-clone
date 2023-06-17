@@ -93,7 +93,12 @@ export default function Model({ selectedManIDs }: Props) {
                 <BsArrowDownShort size={"1.1rem"} />
               )
             ) : (
-              <div onClick={() => setSelectedModelIDs([])}>
+              <div
+                onClick={() => {
+                  setSelectedModelIDs([]);
+                  setModelSearchTerm("");
+                }}
+              >
                 <IoIosClose size={"1.1rem"} />
               </div>
             )}

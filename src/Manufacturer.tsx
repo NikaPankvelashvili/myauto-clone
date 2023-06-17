@@ -95,7 +95,12 @@ export default function Manufacturer({
                 <BsArrowDownShort size={"1.1rem"} />
               )
             ) : (
-              <div onClick={() => setSelectedManIDs([])}>
+              <div
+                onClick={() => {
+                  setSelectedManIDs([]);
+                  setManSearchTerm("");
+                }}
+              >
                 <IoIosClose size={"1.1rem"} />
               </div>
             )}

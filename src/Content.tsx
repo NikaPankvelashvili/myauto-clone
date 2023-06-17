@@ -84,8 +84,24 @@ export default function Content() {
           return -1;
         };
       }
-      default:
-        return (a, b) => 1;
+      case "თარიღი კლებადი": {
+        return (car1: ProductInfo, car2: ProductInfo) => {
+          const car1Time = new Date(car1.order_date);
+          const car2Time = new Date(car2.order_date);
+          if (car1Time.getTime() < car2Time.getTime()) return 1;
+          if (car1Time.getTime() > car2Time.getTime()) return -1;
+          return 0;
+        };
+      }
+      case "თარიღი ზრდადი": {
+        return (car1: ProductInfo, car2: ProductInfo) => {
+          const car1Time = new Date(car1.order_date);
+          const car2Time = new Date(car2.order_date);
+          if (car1Time.getTime() > car2Time.getTime()) return 1;
+          if (car1Time.getTime() < car2Time.getTime()) return -1;
+          return 0;
+        };
+      }
     }
   };
 
