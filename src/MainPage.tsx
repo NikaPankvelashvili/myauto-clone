@@ -2,6 +2,11 @@ import { createContext, useState } from "react";
 import SearchBar, { Currency } from "./SearchBar";
 import Content from "./Content";
 
+type Props = {
+  showBurgerMenu: boolean;
+  setShowBurgerMenu: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
 export type SearchFilters = {
   searchDealType: number;
   setSearchDealType: Function;
@@ -40,7 +45,7 @@ export const SearchFiltersContext = createContext<SearchFilters>({
   setToggleSearch: () => {},
 });
 
-export default function MainPage() {
+export default function MainPage({ showBurgerMenu, setShowBurgerMenu }: Props) {
   const [searchDealType, setSearchDealType] = useState<number>(-1);
   const [searchSelectedManIDs, setSearchSelectedManIDs] = useState<string[]>(
     []
@@ -77,8 +82,11 @@ export default function MainPage() {
         setToggleSearch,
       }}
     >
-      <div className="bg-bgColor min-h-[calc(100%-80px)] flex justify-center pt-16">
-        <SearchBar />
+      <div className="bg-bgColor min-h-[calc(100%-80px)] flex justify-center pt-16 max-lg:pt-4 max-lg:flex-col max-lg:px-5">
+        <SearchBar
+          setShowBurgerMenu={setShowBurgerMenu}
+          showBurgerMenu={showBurgerMenu}
+        />
         <Content />
       </div>
     </SearchFiltersContext.Provider>

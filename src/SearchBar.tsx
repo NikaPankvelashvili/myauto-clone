@@ -12,7 +12,15 @@ import { SearchFiltersContext } from "./MainPage";
 export type Currency = 0 | 1; // 0 - USD 1 - GEL
 export type CategoryType = 0 | 1 | 2; //0 - car, 1 - spec, 2 - moto
 
-export default function SearchBar() {
+type Props = {
+  showBurgerMenu: boolean;
+  setShowBurgerMenu: React.Dispatch<React.SetStateAction<boolean>>;
+};
+
+export default function SearchBar({
+  showBurgerMenu,
+  setShowBurgerMenu,
+}: Props) {
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>(0);
   const [currency, setCurrency] = useState<Currency>(0);
   const [minPrice, setMinPrice] = useState<number>(-1);
@@ -41,7 +49,11 @@ export default function SearchBar() {
   ]);
 
   return (
-    <div className="w-[250px] mr-5 bg-white h-fit rounded-t-[12px] overflow-hidden mb-6">
+    <div
+      className={`w-[250px] mr-5 bg-white h-fit rounded-t-[12px] overflow-hidden mb-6 max-lg:w-full ${
+        showBurgerMenu === false ? "max-lg:hidden" : ""
+      }`}
+    >
       <div className="flex justify-around w-full ">
         <div
           className="w-full rounded-tl-[12px]"
@@ -86,10 +98,13 @@ export default function SearchBar() {
         setMinPrice={setMinPrice}
         setMaxPrice={setMaxPrice}
       />
-      <div className="px-6 py-4 w-full">
+      <div className="px-6 py-4 w-full max-lg:flex max-lg:justify-center">
         <button
-          onClick={() => setToggleSearch(!toggleSearch)}
-          className="w-full h-8 rounded-md text-base text-white bg-[#FD4100] font-bold hover:bg-[#d24415] ease-in-out duration-150"
+          onClick={() => {
+            setToggleSearch(!toggleSearch);
+            setShowBurgerMenu(false);
+          }}
+          className="w-full h-8 rounded-md text-base text-white bg-[#FD4100] font-bold hover:bg-[#d24415] ease-in-out duration-150 max-lg:w-1/2"
         >
           ძიება
         </button>

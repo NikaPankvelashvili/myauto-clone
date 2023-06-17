@@ -8,7 +8,7 @@ type Props = {
 const DropDownFilter = ({ optionsList, indexSetterFunction }: Props) => {
   return (
     <select
-      className=" w-44 px-3 py-[6px] rounded-lg ml-2 text-xs font-medium"
+      className=" w-44 px-3 py-[6px] rounded-lg ml-2 text-xs font-medium cursor-pointer max-sm:mt-2"
       onChange={(e) => indexSetterFunction(e.target.value)}
     >
       {optionsList.map((item, index) => {

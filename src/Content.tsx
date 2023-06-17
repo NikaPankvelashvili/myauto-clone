@@ -232,8 +232,8 @@ export default function Content() {
 
   return (
     <div>
-      <div className="w-[750px] flex items-center justify-between mb-4">
-        <p>{`${filteredData.length} განცხადება`}</p>
+      <div className="w-[750px] flex items-center justify-between mb-4 max-lg:w-full ">
+        <p className="max-lg:hidden">{`${filteredData.length} განცხადება`}</p>
         <div>
           <DropDownFilter
             optionsList={[
@@ -265,9 +265,9 @@ export default function Content() {
         pageCount={pageCount}
         onPageChange={({ selected }) => setPageNumber(selected)}
         containerClassName="flex w-full justify-center mb-10"
-        previousClassName="mr-2 text-[#FD4100] font-bold select-none"
-        nextClassName="ml-2 text-[#FD4100] font-bold select-none"
-        pageClassName="mx-1 select-none"
+        previousClassName="mr-2 text-[#FD4100] font-bold select-none text-xl"
+        nextClassName="ml-2 text-[#FD4100] font-bold select-none text-xl"
+        pageClassName="mx-1 select-none text-xl"
         activeClassName="text-[#FD4100] select-none"
         disabledClassName="text-gray-500"
         breakLabel="..."

@@ -43,7 +43,7 @@ export default function PriceRange({
         </div>
       </div>
       <div className="flex justify-between w-full items-center">
-        <div className="p-3 border-[1px]  relative rounded-lg flex content-between text-xs">
+        <div className="p-3 border-[1px]  relative rounded-lg flex content-between text-xs max-lg:w-1/2">
           <input
             type="number"
             className="focus:outline-none w-full"
@@ -54,7 +54,7 @@ export default function PriceRange({
           />
         </div>
         <span className="mx-3 text-[#8C929B]">{"-"}</span>
-        <div className="p-3 border-[1px] relative rounded-lg flex content-between text-xs">
+        <div className="p-3 border-[1px] relative rounded-lg flex content-between text-xs max-lg:w-1/2">
           <input
             type="number"
             className="focus:outline-none w-full"
